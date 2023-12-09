@@ -1,0 +1,6 @@
+[submodule "api"]
+	path = api
+	url = https://github.com/Mental59/experiment-api.git
+[submodule "web-app"]
+	path = web-app
+	url = https://github.com/Mental59/experiment-web-app.git

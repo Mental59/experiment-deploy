@@ -1,0 +1,42 @@
+version: "3.8"
+
+name: experiment-api
+
+services:
+  ai-backend:
+    restart: always
+    image: ai-backend-image
+    ports:
+      - "5000:3333"
+    networks:
+      - backend
+    volumes:
+      - backend-data:/usr/src/app/artifacts
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow-server:8080
+
+  mlflow-server:
+    restart: always
+    image: mlflow-server-image
+    ports:
+      - "5001:8080"
+    volumes:
+      - mlflow-data:/usr/src/app
+    networks:
+      - backend
+
+  ai-web-app:
+    restart: always
+    image: ai-web-app-image
+    ports:
+      - "5002:8080"
+    networks:
+      - frontend
+
+networks:
+  backend:
+  frontend:
+
+volumes:
+  mlflow-data:
+  backend-data:
